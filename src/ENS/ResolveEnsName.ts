@@ -1,12 +1,21 @@
 import { useState, useEffect } from "react";
 import { Provider } from "@ethersproject/providers";
 
-const useResolveEnsName = (provider: Provider, ensName: string): string | null => {
+const resolveName = async (provider: Provider, name: string) => {
+  try {
+    return await provider.resolveName(name);
+  } catch {
+    // Name resolution has failed.
+    return null;
+  }
+};
+
+const useResolveEnsName = (provider: Provider, ensName?: string): string | null => {
   const [address, setAddress] = useState<string | null>(null);
 
   useEffect(() => {
     if (provider) {
-      provider.resolveName(ensName).then((resolvedAddress: string) => setAddress(resolvedAddress));
+      resolveName(provider, ensName || "").then(newAddress => setAddress(newAddress));
     }
   }, [provider, ensName]);
 
