@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Provider } from "@ethersproject/providers";
 import { getAddress } from "@ethersproject/address";
 
-const lookupAddress = async (provider: Provider, address: string): Promise<string> => {
+const lookupAddress = async (provider: Provider, address: string): Promise<string | null> => {
   try {
     // Accuracy of reverse resolution is not enforced.
     // We then manually ensure that the reported ens name resolves to address
@@ -14,15 +14,15 @@ const lookupAddress = async (provider: Provider, address: string): Promise<strin
   } catch (e) {
     // Do nothing
   }
-  return "";
+  return null;
 };
 
-const useLookupAddress = (provider: Provider, address: string): string => {
-  const [ensName, setEnsName] = useState<string>(address);
+const useLookupAddress = (provider: Provider, address: string): string | null => {
+  const [ensName, setEnsName] = useState<string | null>(null);
 
   useEffect(() => {
     if (provider) {
-      lookupAddress(provider, address).then((name: string) => setEnsName(name));
+      lookupAddress(provider, address).then(name => setEnsName(name));
     }
   }, [provider, address]);
 
