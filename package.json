@@ -21,6 +21,7 @@
     }
   ],
   "dependencies": {
+    "@uniswap/sdk": "^3.0.1",
     "burner-provider": "^1.0.15"
   },
   "peerDependencies": {
