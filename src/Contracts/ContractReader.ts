@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import { useState, useEffect } from "react";
 import { Contract } from "@ethersproject/contracts";
-import usePoller from "./Poller";
-import { BLOCK_TIME } from "./constants";
+import usePoller from "../Poller";
+import { BLOCK_TIME } from "../constants";
 
 const DEBUG = false;
 
